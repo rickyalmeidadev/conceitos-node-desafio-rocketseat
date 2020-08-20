@@ -11,6 +11,12 @@ app.use(cors());
 const repositories = [];
 
 app.get("/repositories", (request, response) => {
+  if (!repositories.length) {
+    return response.status(400).json({
+      message: "Nenhum repositório encontrado.",
+    });
+  }
+
   return response.json(repositories);
 });
 
@@ -38,7 +44,7 @@ app.put("/repositories/:id", (request, response) => {
 
   if (repositoryIndex < 0) {
     return response.status(400).json({
-      error: "Repository not found",
+      message: "Repositório não encontrado.",
     });
   }
 
@@ -61,7 +67,7 @@ app.delete("/repositories/:id", (request, response) => {
 
   if (repositoryIndex < 0) {
     return response.status(400).json({
-      error: "Repository not found",
+      message: "Repositório não encontrado.",
     });
   }
 
@@ -77,7 +83,7 @@ app.post("/repositories/:id/like", (request, response) => {
 
   if (repositoryIndex < 0) {
     return response.status(400).json({
-      error: "Repository not found",
+      message: "Repositório não encontrado.",
     });
   }
 
